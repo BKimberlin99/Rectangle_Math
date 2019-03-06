@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class DAPViewController: UIViewController {
 
@@ -71,6 +72,67 @@ class DAPViewController: UIViewController {
             ResultOutput.text = "ERROR! No length value entered!"
         }
     }
+    
+    //Clear button to set inputs and output back to 0.0
+    @IBAction func Clear(_ sender: UIButton)
+    {
+        LengthInput.text = "0.0"
+        WidthInput.text = "0.0"
+        ResultOutput.text = "0.0"
+    }
 
+    //Restrict what the user can enter into the LengthInput
+    func LengthInput(_ LengthInput: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        //Set up variables for various illegal character cases
+        let existingTextHasDecimalSeparator = LengthInput.text?.range(of: ".")
+        let replacementTextHasDecimalSeparator = string.range(of: ".")
+        let replacementTextHasLetter = string.rangeOfCharacter(from: NSCharacterSet.letters)
+        let replacementTextHasWhiteSpace = string.rangeOfCharacter(from: NSCharacterSet.whitespacesAndNewlines)
+        let replacementTextHasSymbols = string.rangeOfCharacter(from: NSCharacterSet.symbols)
+        let replacementTextHasPunctuation = string.rangeOfCharacter(from: NSCharacterSet.punctuationCharacters)
+        
+        //Check what is being entered and if it is anything other than 0-9, the first period/decimal, or a delete, nothing happens in the app
+        if existingTextHasDecimalSeparator != nil, replacementTextHasDecimalSeparator != nil {
+            return false
+        } else if replacementTextHasLetter != nil {
+            return false
+        } else if replacementTextHasWhiteSpace != nil {
+            return false
+        } else if replacementTextHasSymbols != nil {
+            return false
+        } else if replacementTextHasPunctuation != nil, replacementTextHasDecimalSeparator == nil {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    //Restrict what the user can enter into the WidthInput
+    func WidthInput(_ WidthInput: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        //Set up variables for various illegal character cases
+        let existingTextHasDecimalSeparator = WidthInput.text?.range(of: ".")
+        let replacementTextHasDecimalSeparator = string.range(of: ".")
+        let replacementTextHasLetter = string.rangeOfCharacter(from: NSCharacterSet.letters)
+        let replacementTextHasWhiteSpace = string.rangeOfCharacter(from: NSCharacterSet.whitespacesAndNewlines)
+        let replacementTextHasSymbols = string.rangeOfCharacter(from: NSCharacterSet.symbols)
+        let replacementTextHasPunctuation = string.rangeOfCharacter(from: NSCharacterSet.punctuationCharacters)
+        
+        //Check what is being entered and if it is anything other than 0-9, the first period/decimal, or a delete, nothing happens in the app
+        if existingTextHasDecimalSeparator != nil, replacementTextHasDecimalSeparator != nil {
+            return false
+        } else if replacementTextHasLetter != nil {
+            return false
+        } else if replacementTextHasWhiteSpace != nil {
+            return false
+        } else if replacementTextHasSymbols != nil {
+            return false
+        } else if replacementTextHasPunctuation != nil, replacementTextHasDecimalSeparator == nil {
+            return false
+        } else {
+            return true
+        }
+    }
 }
 
